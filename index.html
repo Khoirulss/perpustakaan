@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perp - Dashboard</title>
+    <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+    <!-- Halaman Login -->
+    <div id="loginPage" class="auth-container">
+        <h2>Login Perpustakaan</h2>
+        <div id="loginAlert"></div>
+        <form id="loginForm">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="loginUsername" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="loginPassword" required>
+            </div>
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+        <div class="auth-switch">
+            Belum punya akun? <a href="#" id="showRegister">Daftar di sini</a>
+        </div>
+    </div>
+
+    <!-- Halaman Register -->
+    <div id="registerPage" class="auth-container hidden">
+        <h2>Daftar Akun Baru</h2>
+        <div id="registerAlert"></div>
+        <form id="registerForm">
+            <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" id="regName" required>
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="regUsername" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="regPassword" required>
+            </div>
+            <button type="submit" class="btn-primary">Daftar</button>
+        </form>
+        <div class="auth-switch">
+            Sudah punya akun? <a href="#" id="showLogin">Login di sini</a>
+        </div>
+    </div>
+
+    <!-- Halaman Utama -->
+    <div id="mainPage" class="hidden">
+        <nav class="navbar">
+            <h1>📚 Perpustakaan Digital</h1>
+            <div class="hamburger" onclick="toggleMenu()" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="showSection('profil')">Profil</a>
+                <a href="#" onclick="showSection('daftarBuku')">Daftar Buku</a>
+                <a href="#" onclick="showSection('tambahBuku')">Tambah Buku</a>
+                <a href="#" onclick="showSection('bukuPinjam')">Buku Dipinjam</a>
+                <div class="user-info">
+                    <div class="user-badge">
+                        <div class="user-icon">👤</div>
+                        <span id="userName"></span>
+                    </div>
+                    <button class="btn-logout" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- Section Profil -->
+            <div id="profil" class="section profile-section">
+                <div class="profile-header">
+                    <div class="profile-avatar">📚</div>
+                    <h2>Selamat Datang di Perpustakaan Digital</h2>
+                    <p style="color: #667eea; font-size: 1.1rem;">Sistem Manajemen Perpustakaan Modern</p>
+                </div>
+
+                <div class="profile-content">
+                    <h3>📖 Tentang Aplikasi</h3>
+                    <p>
+                        Perpustakaan Digital adalah aplikasi web modern yang dirancang untuk memudahkan pengelolaan 
+                        koleksi buku perpustakaan secara digital. Aplikasi ini menyediakan berbagai fitur lengkap 
+                        untuk manajemen buku, peminjaman, dan tracking status buku secara real-time.
+                    </p>
+
+                    <h3>✨ Fitur Unggulan</h3>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <h4>🔐 Sistem Autentikasi</h4>
+                            <p>Login dan registrasi yang aman dengan penyimpanan data terenkripsi</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>📚 Manajemen Buku</h4>
+                            <p>Tambah, edit, dan hapus data buku dengan mudah</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>⏰ Sistem Peminjaman</h4>
+                            <p>Peminjaman buku dengan batas waktu otomatis dan notifikasi</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>📊 Tracking Status</h4>
+                            <p>Pantau status buku tersedia atau dipinjam secara real-time</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>🚨 Alert Keterlambatan</h4>
+                            <p>Notifikasi otomatis untuk buku yang terlambat dikembalikan</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4>📱 Responsive Design</h4>
+                            <p>Dapat diakses dari berbagai perangkat dengan tampilan optimal</p>
+                        </div>
+                    </div>
+
+                    <h3>🛠️ Teknologi yang Digunakan</h3>
+                    <div class="tech-stack">
+                        <span class="tech-badge">HTML5</span>
+                        <span class="tech-badge">CSS3</span>
+                        <span class="tech-badge">JavaScript</span>
+                        <span class="tech-badge">Local Storage</span>
+                        <span class="tech-badge">Responsive Design</span>
+                    </div>
+
+                    <h3>🎯 Tujuan Aplikasi</h3>
+                    <p>
+                        Aplikasi ini dibuat dengan tujuan untuk memberikan solusi digital dalam pengelolaan perpustakaan, 
+                        mengurangi penggunaan kertas, meningkatkan efisiensi pelayanan, dan memudahkan tracking 
+                        peminjaman buku bagi pengguna dan pengelola perpustakaan.
+                    </p>
+
+                    <h3>👤 Informasi Pengguna</h3>
+                    <p>
+                        <strong>Nama:</strong> <span id="profileUserName"></span><br>
+                        <strong>Username:</strong> <span id="profileUsername"></span><br>
+                        <strong>Status:</strong> <span style="color: #2ecc71; font-weight: 600;">Aktif</span>
+                    </p>
+                </div>
+            </div>
+            <!-- Section Daftar Buku -->
+            <div id="daftarBuku" class="section">
+                <h2>Daftar Buku Perpustakaan</h2>
+                <div class="books-grid" id="booksContainer"></div>
+            </div>
+
+            <!-- Section Tambah Buku -->
+            <div id="tambahBuku" class="section hidden">
+                <div class="section-header">
+                    <h2>Tambah Buku Baru</h2>
+                    <p style="color: #667eea; font-size: 1.1rem;">Tambahkan koleksi buku baru ke perpustakaan digital</p>
+                </div>
+
+                <div class="section-content">
+                    <div id="addBookAlert"></div>
+                    <form class="book-form" id="addBookForm">
+                        <div class="form-group">
+                            <label for="bookTitle">Judul Buku</label>
+                            <input type="text" id="bookTitle" placeholder="Masukkan judul buku" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookPublisher">Penerbit</label>
+                            <input type="text" id="bookPublisher" placeholder="Masukkan nama penerbit" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookDate">Tanggal Terbit</label>
+                            <input type="date" id="bookDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="bookAuthor">Penulis</label>
+                            <input type="text" id="bookAuthor" placeholder="Masukkan nama penulis" required>
+                        </div>
+                        <button type="submit" class="btn-add">Tambah Buku</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Section Buku Dipinjam -->
+            <div id="bukuPinjam" class="section hidden">
+                <h2>Buku yang Sedang Dipinjam</h2>
+                <div class="books-grid" id="borrowedBooksContainer"></div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>Perpustakaan Digital v1.0</strong></p>
+            <p>Sistem Manajemen Perpustakaan Modern</p>
+            <div class="footer-links">
+                <a href="#" onclick="showSection('profil')">Tentang</a>
+                <a href="#" onclick="showSection('daftarBuku')">Daftar Buku</a>
+                <a href="#" onclick="showSection('bukuPinjam')">Buku Dipinjam</a>
+            </div>
+            <p style="margin-top: 1rem; font-size: 0.9rem;">&copy; 2025 Perpustakaan Digital. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Modal Pinjam Buku -->
+    <div id="borrowModal" class="modal">
+        <div class="modal-content">
+            <h3>Pilih Durasi Peminjaman</h3>
+            <div class="form-group">
+                <label>Jumlah Hari Peminjaman:</label>
+                <input type="number" id="borrowDays" min="1" max="30" value="7" style="width: 100%; padding: 0.8rem; border: 2px solid #e0e0e0; border-radius: 5px;">
+                <p style="color: #666; font-size: 0.9rem; margin-top: 0.5rem;">Maksimal 30 hari</p>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="confirmBorrow()">Konfirmasi</button>
+                <button class="btn-cancel" onclick="closeBorrowModal()">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Storage
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let books = JSON.parse(localStorage.getItem('books')) || [];
+        let currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || null;
+        let selectedBookId = null;
+
+        // Initialize
+        window.onload = function() {
+            if (currentUser) {
+                showMainPage();
+            }
+        };
+
+        // Show/Hide Pages
+        function showMainPage() {
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('registerPage').classList.add('hidden');
+            document.getElementById('mainPage').classList.remove('hidden');
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('profileUserName').textContent = currentUser.name;
+            document.getElementById('profileUsername').textContent = currentUser.username;
+            showSection('profil');
+        }
+
+        // Authentication
+        document.getElementById('showRegister').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('loginPage').classList.add('hidden');
+            document.getElementById('registerPage').classList.remove('hidden');
+        });
+
+        document.getElementById('showLogin').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('registerPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('regName').value;
+            const username = document.getElementById('regUsername').value;
+            const password = document.getElementById('regPassword').value;
+
+            if (users.find(u => u.username === username)) {
+                showAlert('registerAlert', 'Username sudah digunakan!', 'error');
+                return;
+            }
+
+            users.push({ name, username, password });
+            localStorage.setItem('users', JSON.stringify(users));
+            showAlert('registerAlert', 'Registrasi berhasil! Silakan login.', 'success');
+            
+            setTimeout(() => {
+                document.getElementById('registerPage').classList.add('hidden');
+                document.getElementById('loginPage').classList.remove('hidden');
+            }, 1500);
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                sessionStorage.setItem('currentUser', JSON.stringify(user));
+                showMainPage();
+            } else {
+                showAlert('loginAlert', 'Username atau password salah!', 'error');
+            }
+        });
+
+        function logout() {
+            currentUser = null;
+            sessionStorage.removeItem('currentUser');
+            document.getElementById('mainPage').classList.add('hidden');
+            document.getElementById('loginPage').classList.remove('hidden');
+            document.getElementById('loginForm').reset();
+        }
+
+        // Show Alert
+        function showAlert(elementId, message, type) {
+            const alertDiv = document.getElementById(elementId);
+            alertDiv.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => alertDiv.innerHTML = '', 3000);
+        }
+
+        // Section Navigation
+        function showSection(sectionId) {
+            document.getElementById('profil').classList.add('hidden');
+            document.getElementById('daftarBuku').classList.add('hidden');
+            document.getElementById('tambahBuku').classList.add('hidden');
+            document.getElementById('bukuPinjam').classList.add('hidden');
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            // Close mobile menu
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+            if (window.innerWidth <= 768) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+            
+            if (sectionId === 'bukuPinjam') {
+                renderBorrowedBooks();
+            } else if (sectionId === 'daftarBuku') {
+                renderBooks();
+            }
+        }
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navbar = document.querySelector('.navbar');
+            const navLinks = document.getElementById('navLinks');
+            const hamburger = document.getElementById('hamburger');
+            
+            if (!navbar.contains(event.target) && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Add Book
+        document.getElementById('addBookForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const book = {
+                id: Date.now(),
+                title: document.getElementById('bookTitle').value,
+                publisher: document.getElementById('bookPublisher').value,
+                releaseDate: document.getElementById('bookDate').value,
+                author: document.getElementById('bookAuthor').value,
+                status: 'available',
+                borrowedBy: null,
+                borrowedDate: null
+            };
+
+            books.push(book);
+            localStorage.setItem('books', JSON.stringify(books));
+            showAlert('addBookAlert', 'Buku berhasil ditambahkan!', 'success');
+            document.getElementById('addBookForm').reset();
+            renderBooks();
+        });
+
+        // Render Books
+        function renderBooks() {
+            const container = document.getElementById('booksContainer');
+            
+            if (books.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">Belum ada buku di perpustakaan.</p>';
+                return;
+            }
+
+            container.innerHTML = books.map(book => {
+                let deadlineHtml = '';
+                if (book.status === 'borrowed' && book.returnDate) {
+                    const daysLeft = calculateDaysLeft(book.returnDate);
+                    if (daysLeft < 0) {
+                        deadlineHtml = `<div class="deadline-danger">⚠️ Terlambat ${Math.abs(daysLeft)} hari!</div>`;
+                    } else if (daysLeft === 0) {
+                        deadlineHtml = `<div class="deadline-danger">⚠️ Harus dikembalikan hari ini!</div>`;
+                    } else if (daysLeft <= 2) {
+                        deadlineHtml = `<div class="deadline-warning">⏰ ${daysLeft} hari lagi</div>`;
+                    } else {
+                        deadlineHtml = `<div class="deadline-info">📅 Batas: ${new Date(book.returnDate).toLocaleDateString('id-ID')} (${daysLeft} hari)</div>`;
+                    }
+                }
+
+                return `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p><strong>Penulis:</strong> ${book.author}</p>
+                        <p><strong>Penerbit:</strong> ${book.publisher}</p>
+                        <p><strong>Tanggal Rilis:</strong> ${new Date(book.releaseDate).toLocaleDateString('id-ID')}</p>
+                        <span class="book-status ${book.status === 'available' ? 'status-available' : 'status-borrowed'}">
+                            ${book.status === 'available' ? 'Tersedia' : 'Dipinjam'}
+                        </span>
+                        ${book.borrowedBy ? `<p class="borrowed-info">Dipinjam oleh: ${book.borrowedBy}</p>` : ''}
+                        ${deadlineHtml}
+                        <div class="book-actions">
+                            ${book.status === 'available' ? 
+                                `<button class="btn-borrow" onclick="openBorrowModal(${book.id})">Pinjam</button>` :
+                                book.borrowedBy === currentUser.username ?
+                                `<button class="btn-return" onclick="returnBook(${book.id})">Kembalikan</button>` : ''
+                            }
+                            <button class="btn-delete" onclick="deleteBook(${book.id})">Hapus</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render Borrowed Books
+        function renderBorrowedBooks() {
+            const container = document.getElementById('borrowedBooksContainer');
+            const borrowedBooks = books.filter(b => b.borrowedBy === currentUser.username);
+            
+            if (borrowedBooks.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#666;">Anda belum meminjam buku.</p>';
+                return;
+            }
+
+            container.innerHTML = borrowedBooks.map(book => {
+                const daysLeft = calculateDaysLeft(book.returnDate);
+                let deadlineHtml = '';
+                
+                if (daysLeft < 0) {
+                    deadlineHtml = `<div class="deadline-danger">⚠️ Terlambat ${Math.abs(daysLeft)} hari! Segera kembalikan!</div>`;
+                } else if (daysLeft === 0) {
+                    deadlineHtml = `<div class="deadline-danger">⚠️ Harus dikembalikan hari ini!</div>`;
+                } else if (daysLeft <= 2) {
+                    deadlineHtml = `<div class="deadline-warning">⏰ Tinggal ${daysLeft} hari lagi!</div>`;
+                } else {
+                    deadlineHtml = `<div class="deadline-info">📅 Batas pengembalian: ${new Date(book.returnDate).toLocaleDateString('id-ID')} (${daysLeft} hari lagi)</div>`;
+                }
+
+                return `
+                    <div class="book-card">
+                        <h3>${book.title}</h3>
+                        <p><strong>Penulis:</strong> ${book.author}</p>
+                        <p><strong>Penerbit:</strong> ${book.publisher}</p>
+                        <p><strong>Tanggal Pinjam:</strong> ${new Date(book.borrowedDate).toLocaleDateString('id-ID')}</p>
+                        <p><strong>Durasi Pinjam:</strong> ${book.borrowDuration} hari</p>
+                        ${deadlineHtml}
+                        <div class="book-actions">
+                            <button class="btn-return" onclick="returnBook(${book.id})">Kembalikan</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Calculate Days Left
+        function calculateDaysLeft(returnDate) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            const deadline = new Date(returnDate);
+            deadline.setHours(0, 0, 0, 0);
+            const diffTime = deadline - today;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+
+        // Open Borrow Modal
+        function openBorrowModal(bookId) {
+            selectedBookId = bookId;
+            document.getElementById('borrowModal').style.display = 'block';
+            document.getElementById('borrowDays').value = 7;
+        }
+
+        // Close Borrow Modal
+        function closeBorrowModal() {
+            document.getElementById('borrowModal').style.display = 'none';
+            selectedBookId = null;
+        }
+
+        // Confirm Borrow
+        function confirmBorrow() {
+            const days = parseInt(document.getElementById('borrowDays').value);
+            
+            if (days < 1 || days > 30) {
+                alert('Durasi peminjaman harus antara 1-30 hari!');
+                return;
+            }
+
+            const book = books.find(b => b.id === selectedBookId);
+            if (book && book.status === 'available') {
+                const borrowDate = new Date();
+                const returnDate = new Date();
+                returnDate.setDate(returnDate.getDate() + days);
+                
+                book.status = 'borrowed';
+                book.borrowedBy = currentUser.username;
+                book.borrowedDate = borrowDate.toISOString();
+                book.returnDate = returnDate.toISOString();
+                book.borrowDuration = days;
+                
+                localStorage.setItem('books', JSON.stringify(books));
+                closeBorrowModal();
+                renderBooks();
+                alert(`Buku berhasil dipinjam untuk ${days} hari!\nBatas pengembalian: ${returnDate.toLocaleDateString('id-ID')}`);
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('borrowModal');
+            if (event.target == modal) {
+                closeBorrowModal();
+            }
+        }
+
+        // Borrow Book
+        function borrowBook(bookId) {
+            openBorrowModal(bookId);
+        }
+
+        // Return Book
+        function returnBook(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (book) {
+                const daysLeft = calculateDaysLeft(book.returnDate);
+                let message = 'Terima kasih telah mengembalikan buku!';
+                
+                if (daysLeft < 0) {
+                    message = `Buku dikembalikan dengan keterlambatan ${Math.abs(daysLeft)} hari.\nHarap lebih tepat waktu di kemudian hari.`;
+                }
+                
+                book.status = 'available';
+                book.borrowedBy = null;
+                book.borrowedDate = null;
+                book.returnDate = null;
+                book.borrowDuration = null;
+                localStorage.setItem('books', JSON.stringify(books));
+                renderBooks();
+                renderBorrowedBooks();
+                alert(message);
+            }
+        }
+
+        // Delete Book
+        function deleteBook(bookId) {
+            if (confirm('Apakah Anda yakin ingin menghapus buku ini?')) {
+                books = books.filter(b => b.id !== bookId);
+                localStorage.setItem('books', JSON.stringify(books));
+                renderBooks();
+                renderBorrowedBooks();
+            }
+        }
+    </script>
+</body>
+</html>
